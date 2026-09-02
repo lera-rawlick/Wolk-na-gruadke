@@ -26,6 +26,9 @@ window.DATA = {
   updated: '02.09.2026',
   source: 'Блокнот мамы — 78 сфотографированных страниц',
 
+  /* Куда ведёт кнопка «Исправить». Если репозиторий переедет — поменять здесь. */
+  editUrl: 'https://github.com/lera-rawlick/Wolk-na-gruadke/edit/main/data/data.js',
+
   groups: [
     { id: 'ogorod',  emoji: '🌱', title: 'Огород',    sub: 'Чем кормить, чем лечить, когда сажать' },
     { id: 'kuhnya',  emoji: '🥫', title: 'Заготовки', sub: 'Банки, маринады, зимние запасы' }

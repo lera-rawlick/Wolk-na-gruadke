@@ -214,3 +214,39 @@ h3{ font-size: 1.12em; }
   .fontsize__btn:nth-child(3){ font-size:23px; }
   .wrap{ padding: 1rem .8rem 3rem; }
 }
+
+/* ---------- Блок «Исправить эту запись» ---------- */
+.edit{
+  margin-top: 1.4rem; padding-top: 1.1rem;
+  border-top: 2px dashed var(--line);
+}
+.edit__btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height: 64px; padding: .6rem 1.4rem;
+  background: var(--green); color:#fff; text-decoration:none;
+  border-radius: var(--radius); font-weight:700;
+  box-shadow: var(--shadow);
+}
+.edit__btn:hover, .edit__btn:focus-visible{ background: var(--green-mid); outline:none; }
+.edit__hint{ margin:.8rem 0 .6rem; font-size:.88em; color: var(--ink-soft); }
+.edit__hint code{
+  display:inline-block; background: var(--green-pale); color: var(--ink);
+  padding:.15em .45em; border-radius:6px; font-size: 1.05em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.edit__copy{
+  min-height:52px; padding:.4rem 1.1rem;
+  background: var(--card); color: var(--green);
+  border:2px solid var(--green); border-radius: var(--radius);
+  font-family:inherit; font-size:.9em; font-weight:700; cursor:pointer;
+}
+.edit__copy:hover{ background: var(--green-pale); }
+
+/* Ссылка на инструкцию с главной */
+.howto-link{ margin: 1.4rem 0 0; text-align:center; }
+.howto-link a{
+  display:inline-block; padding:.7rem 1.2rem; min-height:56px;
+  color: var(--green); font-weight:700; text-decoration:none;
+  border:2px dashed var(--line); border-radius: var(--radius);
+}
+.howto-link a:hover{ border-color: var(--green-mid); }

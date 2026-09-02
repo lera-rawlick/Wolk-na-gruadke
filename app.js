@@ -98,6 +98,19 @@
     return html + '</div>';
   }
 
+  /* Кнопка «Исправить» — ведёт в редактор GitHub и подсказывает, что искать */
+  function editBlock(c) {
+    if (!D.editUrl) return '';
+    var mark = "id: '" + c.id + "'";
+    return '<div class="edit">' +
+      '<a class="edit__btn" href="' + esc(D.editUrl) + '" target="_blank" rel="noopener">' +
+      '✏️ Исправить эту запись</a>' +
+      '<p class="edit__hint">Откроется GitHub. Нажмите <b>Ctrl+F</b> (на Маке <b>⌘F</b>) ' +
+      'и вставьте <code>' + esc(mark) + '</code> — попадёте прямо на эту запись.</p>' +
+      '<button type="button" class="edit__copy" data-copy="' + esc(mark) + '">Скопировать подсказку</button>' +
+      '</div>';
+  }
+
   function cardHTML(c, linkTitle) {
     var h = '<article class="card">';
     var sec = sectionById(c.section);
@@ -122,6 +135,7 @@
     });
 
     h += photosBlock(c.photos);
+    h += editBlock(c);
     return h + '</article>';
   }
 
@@ -139,12 +153,39 @@
     });
     h += '</div>';
 
+    h += '<p class="howto-link"><a href="#/help">✏️ Как исправить или дописать запись</a></p>';
     h += divider('Все разделы');
     h += '<div class="tiles">';
     D.sections.forEach(function (s) {
       h += tile('#/s/' + s.id, s.emoji, s.title, s.sub + ' · ' + cardsOfSection(s.id).length, false);
     });
     h += '</div>';
+    return h;
+  }
+
+  function viewHelp() {
+    var h = backBtn('#/', 'На главную');
+    h += '<h1>✏️ Как исправить запись</h1>';
+    h += '<article class="card">';
+    h += '<div class="card__block"><h3>Коротко</h3><ul>' +
+      '<li>Откройте любую запись на сайте.</li>' +
+      '<li>Внизу неё нажмите кнопку <b>«Исправить эту запись»</b>.</li>' +
+      '<li>Откроется GitHub — там текст записи можно поменять.</li>' +
+      '<li>Внизу страницы GitHub нажмите зелёную кнопку <b>Commit changes</b>.</li>' +
+      '<li>Через минуту сайт обновится сам.</li>' +
+      '</ul></div>';
+    h += '<div class="card__block"><h3>Как найти нужное место</h3>' +
+      '<p>На GitHub весь текст записей идёт одним длинным файлом. ' +
+      'На карточке рядом с кнопкой есть подсказка вида <code>id: \'hrenovina\'</code> — ' +
+      'скопируйте её, нажмите <b>Ctrl+F</b> (на Маке <b>⌘F</b>) и вставьте. ' +
+      'Курсор встанет ровно на эту запись.</p></div>';
+    h += '<div class="note">Менять можно только текст в кавычках. Запятые, скобки и ' +
+      'кавычки лучше не трогать — они держат разметку.</div>';
+    if (D.editUrl) {
+      h += '<div class="edit"><a class="edit__btn" href="' + esc(D.editUrl) +
+        '" target="_blank" rel="noopener">✏️ Открыть все записи на GitHub</a></div>';
+    }
+    h += '</article>';
     return h;
   }
 
@@ -255,7 +296,8 @@
     var hash = location.hash.replace(/^#/, '') || '/';
     var parts = hash.split('/').filter(Boolean);
     var html;
-    if (parts[0] === 'g') html = viewGroup(parts[1]);
+    if (parts[0] === 'help') html = viewHelp();
+    else if (parts[0] === 'g') html = viewGroup(parts[1]);
     else if (parts[0] === 's') html = viewSection(parts[1]);
     else if (parts[0] === 'c') html = viewCard(parts[1]);
     else html = viewHome();
@@ -273,8 +315,35 @@
 
   document.addEventListener('click', function (e) {
     var p = e.target.closest('[data-photo]');
-    if (p) { e.preventDefault(); openPhoto(p.dataset.photo); }
+    if (p) { e.preventDefault(); openPhoto(p.dataset.photo); return; }
+
+    var cp = e.target.closest('[data-copy]');
+    if (cp) {
+      var text = cp.dataset.copy;
+      var done = function () {
+        var was = cp.textContent;
+        cp.textContent = 'Скопировано ✓';
+        setTimeout(function () { cp.textContent = was; }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+      } else {
+        fallbackCopy(text, done);
+      }
+    }
   });
+
+  /* Запасной способ копирования — для старых браузеров и http */
+  function fallbackCopy(text, done) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (err) { /* не вышло — не страшно */ }
+    ta.remove();
+  }
 
   window.addEventListener('hashchange', render);
   initScale();
