@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Волк">
+  <g fill="#6E7A85">
+    <path d="M11 4 26 17 9 26z"/>
+    <path d="M53 4 38 17 55 26z"/>
+    <path d="M32 15c-11.5 0-20.5 6.6-20.5 15.8 0 8.2 4.2 13.6 9.6 17.7L32 57l10.9-8.5c5.4-4.1 9.6-9.5 9.6-17.7C52.5 21.6 43.5 15 32 15z"/>
+  </g>
+  <path d="M32 38c-4.6 0-8 2.4-8 5.4 0 3.4 3.6 6.6 8 6.6s8-3.2 8-6.6c0-3-3.4-5.4-8-5.4z" fill="#EFE7D8"/>
+  <g fill="#24301F">
+    <path d="M15 29.5 24.5 32 15 35z"/>
+    <path d="M49 29.5 39.5 32 49 35z"/>
+    <ellipse cx="32" cy="42.5" rx="3.2" ry="2.4"/>
+    <path d="M32 45v3.5" stroke="#24301F" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+</svg>

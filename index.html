@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Волк на грядке — мамины записи</title>
+<meta name="description" content="Огород и заготовки: расшифрованные записи из блокнота, крупным шрифтом.">
+<meta name="theme-color" content="#2f5d3f">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="assets/favicon.svg">
+</head>
+<body>
+
+<!-- Шапка: волк-талисман + ромашки. Кликабельна — возврат на главную. -->
+<header class="top">
+  <a class="top__home" href="#/" aria-label="На главную">
+    <span class="top__wolf" aria-hidden="true">
+      <img src="assets/wolf.svg" alt="" width="56" height="56">
+    </span>
+    <span class="top__title">Волк на грядке</span>
+  </a>
+
+  <!-- Переключатель размера шрифта: для мамы главное — крупно -->
+  <div class="fontsize" role="group" aria-label="Размер шрифта">
+    <button type="button" data-scale="1"    class="fontsize__btn" title="Обычный шрифт">А</button>
+    <button type="button" data-scale="1.22" class="fontsize__btn" title="Крупный шрифт">А</button>
+    <button type="button" data-scale="1.5"  class="fontsize__btn" title="Очень крупный шрифт">А</button>
+  </div>
+</header>
+
+<!-- Полоска-разделитель со следами волчьих лап -->
+<div class="paws" aria-hidden="true"></div>
+
+<main id="app" class="wrap">
+  <p class="loading">Загружаю записи…</p>
+</main>
+
+<footer class="bottom">
+  <span class="bottom__daisy" aria-hidden="true"><img src="assets/daisy.svg" alt="" width="28" height="28"></span>
+  Мамин блокнот, переведённый в печатный вид
+</footer>
+
+<!-- Данные лежат отдельным файлом — их можно править руками, не трогая код -->
+<script src="data/data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
